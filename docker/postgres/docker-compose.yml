@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: db
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
