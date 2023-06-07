@@ -18,7 +18,7 @@ fastify.get("/:key", async (request, reply) => {
   if (!key) return reply.status(400).send({ error: "Key is required" });
 
   const value = await redisClient.get(key);
-  return value;
+  return { key, value };
 });
 
 fastify.post("/:key", async (request, reply) => {
