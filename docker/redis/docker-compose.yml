@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
+      # use the redis container name as the host
+      REDIS_URL: redis://redisDB:${REDIS_PORT}
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+  redisDB:
+    image: redis:alpine
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+
+
